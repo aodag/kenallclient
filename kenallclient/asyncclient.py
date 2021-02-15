@@ -1,6 +1,4 @@
-import asyncio
 import urllib.parse
-import json
 from typing import Dict
 
 import aiohttp
@@ -11,13 +9,17 @@ from .model import KenAllResult
 class AsyncKenAllClient:
     def __init__(self, api_key: str) -> None:
         self.api_key = api_key
-        self.session = None
+        self.session = aiohttp.ClientSession()
 
     async def __aenter__(self):
-        self.session = aiohttp.ClientSession()
+        if self.session is None:
+            raise Exception("closed")
         return self
 
     async def __aexit__(self, exc_type, exc_value, traceback):
+        await self.close()
+
+    async def close(self):
         if self.session is not None:
             await self.session.close()
             self.session = None
