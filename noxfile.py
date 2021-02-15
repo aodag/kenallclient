@@ -13,3 +13,9 @@ def lint(session: nox.Session):
     session.run("black", "--check", "kenallclient")
     session.run("flake8", "kenallclient")
     session.run("mypy", "kenallclient")
+
+
+@nox.session
+def pack(session: nox.Session):
+    session.install("build")
+    session.run("python", "-m", "build")

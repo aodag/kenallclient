@@ -11,14 +11,16 @@ from .model import KenAllResult
 class AsyncKenAllClient:
     def __init__(self, api_key: str) -> None:
         self.api_key = api_key
+        self.session = None
 
     async def __aenter__(self):
         self.session = aiohttp.ClientSession()
         return self
 
     async def __aexit__(self, exc_type, exc_value, traceback):
-        await self.session.close()
-        self.session = None
+        if self.session is not None:
+            await self.session.close()
+            self.session = None
 
     @property
     def authorization(self) -> Dict[str, str]:
@@ -48,6 +50,7 @@ async def main() -> None:
         pprint(dataclasses.asdict(await client.get(args.postalcode)))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     import asyncio
+
     asyncio.get_event_loop().run_until_complete(main())
