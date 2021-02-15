@@ -1,8 +1,6 @@
 import dataclasses
 from typing import List, Optional
-import urllib.request
-import urllib.parse
-import json
+
 
 @dataclasses.dataclass()
 class KenAllCorporation:
@@ -56,41 +54,3 @@ class KenAllResult:
         dd = dict(**d)
         dd["data"] = data
         return KenAllResult(**dd)
-
-
-class KenAllClient:
-    def __init__(self, api_key):
-        self.api_key = api_key
-
-    @property
-    def authorization(self):
-        auth = {"Authorization": f"Token {self.api_key}"}
-        return auth
-
-    def create_request(self, postal_code):
-        url = urllib.parse.urljoin("https://api.kenall.jp/v1/postalcode/", postal_code)
-        req = urllib.request.Request(url, headers=self.authorization)
-        return req
-
-    def get(self, postal_code):
-        req = self.create_request(postal_code)
-        with urllib.request.urlopen(req) as res:
-            if res.headers["Content-Type"].startswith("application/json"):
-                d = json.load(res)
-                return KenAllResult.fromdict(d)
-            else:
-                ValueError("not json response", res.read())
-
-
-def main():
-    import argparse
-    parser = argparse.ArgumentParser()
-    parser.add_argument("apikey")
-    parser.add_argument("postalcode")
-    args = parser.parse_args()
-    client = KenAllClient(args.apikey)
-    print(client.get(args.postalcode))
-
-
-if __name__ == "__main__":
-    main()
