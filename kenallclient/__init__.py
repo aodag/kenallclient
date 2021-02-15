@@ -1,11 +1,9 @@
-from .client import KenAllClient
-
-
 def main() -> None:
     import argparse
     import dataclasses
     import os
     from pprint import pprint
+    from .client import KenAllClient
 
     parser = argparse.ArgumentParser()
     parser.add_argument("--apikey", default=os.environ.get("KENALL_APIKEY"))
