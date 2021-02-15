@@ -67,12 +67,8 @@ class KenAllClient:
         auth = {"Authorization": f"Token {self.api_key}"}
         return auth
 
-    def build_url(self, postal_code):
-        url = urllib.parse.urljoin("https://api.kenall.jp/v1/postalcode/", postal_code)
-        return url
-    
     def create_request(self, postal_code):
-        url = self.build_url(postal_code)
+        url = urllib.parse.urljoin("https://api.kenall.jp/v1/postalcode/", postal_code)
         req = urllib.request.Request(url, headers=self.authorization)
         return req
 
@@ -81,6 +77,20 @@ class KenAllClient:
         with urllib.request.urlopen(req) as res:
             if res.headers["Content-Type"].startswith("application/json"):
                 d = json.load(res)
-                print(KenAllResult.fromdict(d))
+                return KenAllResult.fromdict(d)
             else:
-                print(res.read())
+                ValueError("not json response", res.read())
+
+
+def main():
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument("apikey")
+    parser.add_argument("postalcode")
+    args = parser.parse_args()
+    client = KenAllClient(args.apikey)
+    print(client.get(args.postalcode))
+
+
+if __name__ == "__main__":
+    main()
