@@ -3,10 +3,13 @@ from .client import KenAllClient
 
 def main() -> None:
     import argparse
+    import dataclasses
+    import os
+    from pprint import pprint
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("apikey")
+    parser.add_argument("--apikey", default=os.environ.get("KENALL_APIKEY"))
     parser.add_argument("postalcode")
     args = parser.parse_args()
     client = KenAllClient(args.apikey)
-    print(client.get(args.postalcode))
+    pprint(dataclasses.asdict(client.get(args.postalcode)))
