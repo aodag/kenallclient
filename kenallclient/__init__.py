@@ -1,8 +1,9 @@
 from .client import KenAllClient
 
 
-def main():
+def main() -> None:
     import argparse
+
     parser = argparse.ArgumentParser()
     parser.add_argument("apikey")
     parser.add_argument("postalcode")

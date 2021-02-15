@@ -35,7 +35,7 @@ class KenAllResultItem:
     corporation: Optional[KenAllCorporation]
 
     @classmethod
-    def fromdict(self, i):
+    def fromdict(self, i) -> KenAllResultItem:
         if i["corporation"]:
             c = i["corporation"]
             corp = KenAllCorporation(**c)
@@ -49,7 +49,7 @@ class KenAllResult:
     data: List[KenAllResultItem]
 
     @classmethod
-    def fromdict(self, d):
+    def fromdict(self, d) -> KenAllResult:
         data = [KenAllResultItem.fromdict(i) for i in d["data"]]
         dd = dict(**d)
         dd["data"] = data
