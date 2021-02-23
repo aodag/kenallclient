@@ -1,5 +1,6 @@
 import nox
 
+nox.options.sessions = ["test", "lint"]
 
 @nox.session
 def test(session: nox.Session):
