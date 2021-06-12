@@ -24,9 +24,10 @@ jobs:
             dist
       - name: Release
         uses: softprops/action-gh-release@v1
-        files: |
-          dists/kenallclient-*.whl
-          dists/kenallclient-*.tar.gz
-          dists/kenallclient-*.zip
+        with:
+          files: |
+            dists/kenallclient-*.whl
+            dists/kenallclient-*.tar.gz
+            dists/kenallclient-*.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
