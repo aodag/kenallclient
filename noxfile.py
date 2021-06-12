@@ -11,7 +11,7 @@ def test(session: nox.Session):
 
 @nox.session
 def lint(session: nox.Session):
-    session.install("-e", ".[async,dev]")
+    session.install("-e", ".[dev]")
     session.run("black", "--check", "kenallclient")
     session.run("flake8", "kenallclient")
     session.run("mypy", "kenallclient")
