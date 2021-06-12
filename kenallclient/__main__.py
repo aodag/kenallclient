@@ -1,3 +1,3 @@
-from . import main
+from kenallclient import main
 
 main()
