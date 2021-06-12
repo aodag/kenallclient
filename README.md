@@ -5,7 +5,7 @@
 To use kenallclient in your program, create KenAllClient with api key and call get method.
 
 ```
->>> from kenallclient import KenAllClient
+>>> from kenallclient.client import KenAllClient
 >>> API_KEY = "YOUR_API_KEY"
 >>> zipcode = "1008105"
 >>> client = KenAllClient(API_KEY)
