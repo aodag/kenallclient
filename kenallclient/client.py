@@ -1,8 +1,9 @@
-from .model import KenAllResult
 import urllib.request
 import urllib.parse
 import json
 from typing import Dict
+
+from kenallclient.model import KenAllResult
 
 
 class KenAllClient:
@@ -19,10 +20,13 @@ class KenAllClient:
         req = urllib.request.Request(url, headers=self.authorization)
         return req
 
-    def get(self, postal_code) -> KenAllResult:
-        req = self.create_request(postal_code)
+    def fetch(self, req: urllib.request.Request) -> KenAllResult:
         with urllib.request.urlopen(req) as res:
             if not res.headers["Content-Type"].startswith("application/json"):
                 ValueError("not json response", res.read())
             d = json.load(res)
             return KenAllResult.fromdict(d)
+
+    def get(self, postal_code) -> KenAllResult:
+        req = self.create_request(postal_code)
+        return self.fetch(req)
