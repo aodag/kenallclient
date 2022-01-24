@@ -1,5 +1,5 @@
 import dataclasses
-from typing import List, Optional
+from typing import List, Optional, Any, Dict
 
 
 @dataclasses.dataclass()
@@ -35,7 +35,7 @@ class KenAllResultItem:
     corporation: Optional[KenAllCorporation]
 
     @classmethod
-    def fromdict(self, i) -> "KenAllResultItem":
+    def fromdict(self, i: Dict[str, Any]) -> "KenAllResultItem":
         if i["corporation"]:
             c = i["corporation"]
             corp = KenAllCorporation(**c)
@@ -49,7 +49,7 @@ class KenAllResult:
     data: List[KenAllResultItem]
 
     @classmethod
-    def fromdict(self, d) -> "KenAllResult":
+    def fromdict(self, d: Dict[str, Any]) -> "KenAllResult":
         data = [KenAllResultItem.fromdict(i) for i in d["data"]]
         dd = dict(**d)
         dd["data"] = data
