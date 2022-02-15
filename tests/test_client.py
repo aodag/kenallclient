@@ -37,10 +37,12 @@ def test_fetch_unexpected_content_type(mocker, dummy_json):
 
     dummy_response = io.StringIO(json.dumps(dummy_json))
     dummy_response.headers = {"Content-Type": "plain/text"}
+    request_body = dummy_response.getvalue()
     mock_urlopen = mocker.patch("kenallclient.client.urllib.request.urlopen")
     mock_urlopen.return_value = dummy_response
 
     request = object()
     target = KenAllClient("testing-api-key")
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError) as e:
         target.fetch(request)
+    assert e.value.args == ("not json response", request_body)
