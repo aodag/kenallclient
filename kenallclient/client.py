@@ -1,9 +1,9 @@
 import json
 import urllib.parse
 import urllib.request
-from typing import Dict
+from typing import Dict, Optional
 
-from kenallclient.model import KenAllResult
+from kenallclient.model import KenAllResult, KenAllSearchResult
 
 
 class KenAllClient:
@@ -30,3 +30,25 @@ class KenAllClient:
     def get(self, postal_code: str) -> KenAllResult:
         req = self.create_request(postal_code)
         return self.fetch(req)
+
+    def create_search_request(self, q: str, offset: Optional[int] = None, limit: Optional[int] = None, facet: Optional[str] = None) -> urllib.request.Request:
+        query = urllib.parse.urlencode({
+            q: q,
+            offset: offset,
+            limit: limit,
+            facet: facet,
+        })
+        url = f"https://api.kenall.jp/v1/postalcode/?{query}"
+        req = urllib.request.Request(url, headers=self.authorization)
+        return req
+
+    def fetch_search_result(self, req: urllib.request.Request) -> KenAllSearchResult:
+        with urllib.request.urlopen(req) as res:
+            if not res.headers["Content-Type"].startswith("application/json"):
+                raise ValueError("not json response", res.read())
+            d = json.load(res)
+            return KenAllSearchResult.fromdict(d)
+
+    def search(self, q: str, offset: Optional[int] = None, limit: Optional[int] = None, facet: Optional[str] = None) -> KenAllSearchResult:
+        req = self.create_search_request(q, offset, limit, facet)
+        return self.fetch_search_result(req)
