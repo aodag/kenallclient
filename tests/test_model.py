@@ -1,38 +1,140 @@
 from kenallclient import model
 
 
-def test_fromdict(dummy_json):
-    result = model.KenAllResult.fromdict(dummy_json)
-    assert result == model.KenAllResult(
-        version="2020-11-30",
-        data=[
-            model.KenAllResultItem(
-                jisx0402="13101",
-                old_code="100",
-                postal_code="1008105",
-                prefecture_kana="",
-                city_kana="",
-                town_kana="",
-                town_kana_raw="",
-                prefecture="東京都",
-                city="千代田区",
-                town="大手町",
-                koaza="",
-                kyoto_street="",
-                building="",
-                floor="",
-                town_partial=False,
-                town_addressed_koaza=False,
-                town_chome=False,
-                town_multi=False,
-                town_raw="大手町",
-                corporation=model.KenAllCorporation(
-                    name="チッソ　株式会社",
-                    name_kana="ﾁﾂｿ ｶﾌﾞｼｷｶﾞｲｼﾔ",
-                    block_lot="２丁目２－１（新大手町ビル）",
-                    post_office="銀座",
-                    code_type=0,
+class TestKenAllSearchResult:
+    def test_fromdict(self, dummy_search_json):
+        result = model.KenAllSearchResult.fromdict(dummy_search_json)
+        assert result == model.KenAllSearchResult(
+            version="2021-02-26",
+            query="神奈川県 AND 日本郵便",
+            count= 3,
+            offset= 0,
+            limit= 100,
+            facets=[
+                ("/神奈川県", 3),
+            ],
+            data=[
+                model.KenAllResultItem(
+                    jisx0402="14131",
+                    old_code="210",
+                    postal_code="2108797",
+                    prefecture_kana="",
+                    city_kana="",
+                    town_kana="",
+                    town_kana_raw="",
+                    prefecture="神奈川県",
+                    city="川崎市川崎区",
+                    town="榎町",
+                    koaza="",
+                    kyoto_street="",
+                    building="",
+                    floor="",
+                    town_partial=False,
+                    town_addressed_koaza=False,
+                    town_chome=False,
+                    town_multi=False,
+                    town_raw="榎町",
+                    corporation=model.KenAllCorporation(
+                        name="日本郵便　株式会社　南関東支社",
+                        name_kana="ニツポンユウビン　カブシキガイシヤ　ミナミカントウシシヤ",
+                        block_lot="１－２",
+                        post_office="川崎港",
+                        code_type=0,
+                    ),
                 ),
-            )
-        ],
-    )
+                model.KenAllResultItem(
+                    jisx0402="14131",
+                    old_code="210",
+                    postal_code="2108796",
+                    prefecture_kana="",
+                    city_kana="",
+                    town_kana="",
+                    town_kana_raw="",
+                    prefecture="神奈川県",
+                    city="川崎市川崎区",
+                    town="榎町",
+                    koaza="",
+                    kyoto_street="",
+                    building="",
+                    floor="",
+                    town_partial=False,
+                    town_addressed_koaza=False,
+                    town_chome=False,
+                    town_multi=False,
+                    town_raw="榎町",
+                    corporation=model.KenAllCorporation(
+                        name="日本郵便　株式会社　神奈川監査室",
+                        name_kana="ニツポンユウビン　カブシキガイシヤ　カナガワカンサシツ",
+                        block_lot="１－２",
+                        post_office="川崎港",
+                        code_type=0,
+                    ),
+                ),
+                model.KenAllResultItem(
+                    jisx0402="14131",
+                    old_code="210",
+                    postal_code="2108793",
+                    prefecture_kana="",
+                    city_kana="",
+                    town_kana="",
+                    town_kana_raw="",
+                    prefecture="神奈川県",
+                    city="川崎市川崎区",
+                    town="榎町",
+                    koaza="",
+                    kyoto_street="",
+                    building="",
+                    floor="",
+                    town_partial=False,
+                    town_addressed_koaza=False,
+                    town_chome=False,
+                    town_multi=False,
+                    town_raw="榎町",
+                    corporation=model.KenAllCorporation(
+                        name="日本郵便　株式会社　南関東支社　郵便事業本部　（三種）",
+                        name_kana="ニホンユウビン　カブシキガイシヤ　ミナミカントウシシヤ　ユウビンジギヨウホンブ　（サンシユ）",
+                        block_lot="１－２",
+                        post_office="川崎港",
+                        code_type=0,
+                    ),
+                ),
+            ],
+        )
+
+
+class TestKenAllResult:
+    def test_fromdict(self, dummy_json):
+        result = model.KenAllResult.fromdict(dummy_json)
+        assert result == model.KenAllResult(
+            version="2020-11-30",
+            data=[
+                model.KenAllResultItem(
+                    jisx0402="13101",
+                    old_code="100",
+                    postal_code="1008105",
+                    prefecture_kana="",
+                    city_kana="",
+                    town_kana="",
+                    town_kana_raw="",
+                    prefecture="東京都",
+                    city="千代田区",
+                    town="大手町",
+                    koaza="",
+                    kyoto_street="",
+                    building="",
+                    floor="",
+                    town_partial=False,
+                    town_addressed_koaza=False,
+                    town_chome=False,
+                    town_multi=False,
+                    town_raw="大手町",
+                    corporation=model.KenAllCorporation(
+                        name="チッソ　株式会社",
+                        name_kana="ﾁﾂｿ ｶﾌﾞｼｷｶﾞｲｼﾔ",
+                        block_lot="２丁目２－１（新大手町ビル）",
+                        post_office="銀座",
+                        code_type=0,
+                    ),
+                )
+            ],
+        )

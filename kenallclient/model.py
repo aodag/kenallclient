@@ -71,4 +71,5 @@ class KenAllSearchResult:
         data = [KenAllResultItem.fromdict(i) for i in d["data"]]
         dd = dict(**d)
         dd["data"] = data
+        dd["facets"] = [tuple(f) for f in dd["facets"]]
         return KenAllSearchResult(**dd)
