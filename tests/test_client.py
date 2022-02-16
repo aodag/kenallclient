@@ -4,6 +4,18 @@ import pytest
 def test_it():
     pass
 
+@pytest.mark.parametrize(
+    "api_url,expected",
+    [
+        pytest.param(None, "https://api.kenall.jp/v1/postalcode/"),
+        pytest.param("https://kenall.example.com/v1/", "https://kenall.example.com/v1/"),
+    ],
+)
+def test_api_url(api_url, expected):
+    from kenallclient.client import KenAllClient
+    target = KenAllClient("testing-api-key", api_url=api_url)
+    assert target.api_url == expected
+
 
 def test_create_request():
     from kenallclient.client import KenAllClient

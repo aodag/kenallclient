@@ -7,8 +7,12 @@ from kenallclient.model import KenAllResult, KenAllSearchResult
 
 
 class KenAllClient:
-    def __init__(self, api_key: str) -> None:
+    api_url = "https://api.kenall.jp/v1/postalcode/"
+
+    def __init__(self, api_key: str, api_url: Optional[str] = None) -> None:
         self.api_key = api_key
+        if api_url is not None:
+            self.api_url = api_url
 
     @property
     def authorization(self) -> Dict[str, str]:
@@ -16,7 +20,7 @@ class KenAllClient:
         return auth
 
     def create_request(self, postal_code: str) -> urllib.request.Request:
-        url = urllib.parse.urljoin("https://api.kenall.jp/v1/postalcode/", postal_code)
+        url = urllib.parse.urljoin(self.api_url, postal_code)
         req = urllib.request.Request(url, headers=self.authorization)
         return req
 
@@ -38,7 +42,7 @@ class KenAllClient:
             limit: limit,
             facet: facet,
         })
-        url = f"https://api.kenall.jp/v1/postalcode/?{query}"
+        url = f"{self.api_url}?{query}"
         req = urllib.request.Request(url, headers=self.authorization)
         return req
 
@@ -49,6 +53,6 @@ class KenAllClient:
             d = json.load(res)
             return KenAllSearchResult.fromdict(d)
 
-    def search(self, q: str, offset: Optional[int] = None, limit: Optional[int] = None, facet: Optional[str] = None) -> KenAllSearchResult:
+    def search(self, *, q: str, offset: Optional[int] = None, limit: Optional[int] = None, facet: Optional[str] = None) -> KenAllSearchResult:
         req = self.create_search_request(q, offset, limit, facet)
         return self.fetch_search_result(req)
