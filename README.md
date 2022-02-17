@@ -17,6 +17,8 @@ To use kenallclient in your program, create KenAllClient with api key and call g
 >>> client = KenAllClient(API_KEY)
 ```
 
+#### methods
+
 `get` method gets an address by postalcode.
 
 ```
