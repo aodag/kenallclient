@@ -1,7 +1,7 @@
 import json
 import urllib.parse
 import urllib.request
-from typing import Dict, Optional
+from typing import Dict, List, Optional, Tuple
 
 from kenallclient.model import KenAllResult, KenAllSearchResult
 
@@ -36,12 +36,14 @@ class KenAllClient:
         return self.fetch(req)
 
     def create_search_request(self, q: str, offset: Optional[int] = None, limit: Optional[int] = None, facet: Optional[str] = None) -> urllib.request.Request:
-        query = urllib.parse.urlencode({
-            q: q,
-            offset: offset,
-            limit: limit,
-            facet: facet,
-        })
+        query_mapping: List[Tuple[str, Optional[str]]] = [
+            ("q", q),
+            ("offset", str(offset) if offset is not None else None),
+            ("limit", str(limit) if limit is not None else None),
+            ("facet", facet),
+        ]
+        print(query_mapping)
+        query = urllib.parse.urlencode([(k, v) for k, v in query_mapping if v is not None])
         url = f"{self.api_url}?{query}"
         req = urllib.request.Request(url, headers=self.authorization)
         return req

@@ -28,6 +28,7 @@ EXAMPLE = """\
         "name": "チッソ　株式会社",
         "name_kana": "ﾁﾂｿ ｶﾌﾞｼｷｶﾞｲｼﾔ",
         "block_lot": "２丁目２－１（新大手町ビル）",
+        "block_lot_num": "2-2-1",
         "post_office": "銀座",
         "code_type": 0
       }
@@ -73,6 +74,7 @@ SEARCH_EXAMPLE = """\
         "name": "日本郵便　株式会社　南関東支社",
         "name_kana": "ニツポンユウビン　カブシキガイシヤ　ミナミカントウシシヤ",
         "block_lot": "１－２",
+        "block_lot_num": "1-2",
         "post_office": "川崎港",
         "code_type": 0
       }
@@ -101,6 +103,7 @@ SEARCH_EXAMPLE = """\
         "name": "日本郵便　株式会社　神奈川監査室",
         "name_kana": "ニツポンユウビン　カブシキガイシヤ　カナガワカンサシツ",
         "block_lot": "１－２",
+        "block_lot_num": "1-2",
         "post_office": "川崎港",
         "code_type": 0
       }
@@ -129,6 +132,7 @@ SEARCH_EXAMPLE = """\
         "name": "日本郵便　株式会社　南関東支社　郵便事業本部　（三種）",
         "name_kana": "ニホンユウビン　カブシキガイシヤ　ミナミカントウシシヤ　ユウビンジギヨウホンブ　（サンシユ）",
         "block_lot": "１－２",
+        "block_lot_num": "1-2",
         "post_office": "川崎港",
         "code_type": 0
       }

@@ -7,6 +7,7 @@ class KenAllCorporation:
     name: str
     name_kana: str
     block_lot: str
+    block_lot_num: Optional[str]
     post_office: str
     code_type: int
 
@@ -62,8 +63,8 @@ class KenAllSearchResult:
     data: List[KenAllResultItem]
     query: str
     count: int
-    offset: int
-    limit: int
+    offset: Optional[int]
+    limit: Optional[int]
     facets: Optional[List[Tuple[str, int]]]
 
     @classmethod
@@ -71,5 +72,6 @@ class KenAllSearchResult:
         data = [KenAllResultItem.fromdict(i) for i in d["data"]]
         dd = dict(**d)
         dd["data"] = data
-        dd["facets"] = [tuple(f) for f in dd["facets"]]
+        if dd["facets"] is not None:
+            dd["facets"] = [tuple(f) for f in dd["facets"]]
         return KenAllSearchResult(**dd)
