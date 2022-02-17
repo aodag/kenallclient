@@ -16,7 +16,7 @@ KenAllResult(version='2021-01-29', data=[KenAllResultItem(jisx0402='13101', old_
 To use kenallclient in command line, call kenallclient module.
 
 ```
-python -m kenallclient --apikey="YOUR_API_KEY" 1008105
+python -m kenallclient --apikey="YOUR_API_KEY" get 1008105
 {'data': [{'building': '',
            'city': '千代田区',
            'city_kana': '',
