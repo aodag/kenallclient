@@ -1,5 +1,5 @@
 import dataclasses
-from typing import List, Optional, Any, Dict
+from typing import List, Optional, Any, Dict, Tuple
 
 
 @dataclasses.dataclass()
@@ -7,6 +7,7 @@ class KenAllCorporation:
     name: str
     name_kana: str
     block_lot: str
+    block_lot_num: Optional[str]
     post_office: str
     code_type: int
 
@@ -35,7 +36,7 @@ class KenAllResultItem:
     corporation: Optional[KenAllCorporation]
 
     @classmethod
-    def fromdict(self, i: Dict[str, Any]) -> "KenAllResultItem":
+    def fromdict(cls, i: Dict[str, Any]) -> "KenAllResultItem":
         if i["corporation"]:
             c = i["corporation"]
             corp = KenAllCorporation(**c)
@@ -49,8 +50,28 @@ class KenAllResult:
     data: List[KenAllResultItem]
 
     @classmethod
-    def fromdict(self, d: Dict[str, Any]) -> "KenAllResult":
+    def fromdict(cls, d: Dict[str, Any]) -> "KenAllResult":
         data = [KenAllResultItem.fromdict(i) for i in d["data"]]
         dd = dict(**d)
         dd["data"] = data
         return KenAllResult(**dd)
+
+
+@dataclasses.dataclass()
+class KenAllSearchResult:
+    version: str
+    data: List[KenAllResultItem]
+    query: str
+    count: int
+    offset: Optional[int]
+    limit: Optional[int]
+    facets: Optional[List[Tuple[str, int]]]
+
+    @classmethod
+    def fromdict(cls, d: Dict[str, Any]) -> "KenAllSearchResult":
+        data = [KenAllResultItem.fromdict(i) for i in d["data"]]
+        dd = dict(**d)
+        dd["data"] = data
+        if dd["facets"] is not None:
+            dd["facets"] = [tuple(f) for f in dd["facets"]]
+        return KenAllSearchResult(**dd)
