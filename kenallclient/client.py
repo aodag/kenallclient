@@ -35,9 +35,10 @@ class KenAllClient:
         req = self.create_request(postal_code)
         return self.fetch(req)
 
-    def create_search_request(self, q: str, offset: Optional[int] = None, limit: Optional[int] = None, facet: Optional[str] = None) -> urllib.request.Request:
+    def create_search_request(self, q: Optional[str] = None, t: Optional[str] = None, offset: Optional[int] = None, limit: Optional[int] = None, facet: Optional[str] = None) -> urllib.request.Request:
         query_mapping: List[Tuple[str, Optional[str]]] = [
             ("q", q),
+            ("t", t),
             ("offset", str(offset) if offset is not None else None),
             ("limit", str(limit) if limit is not None else None),
             ("facet", facet),
@@ -55,6 +56,6 @@ class KenAllClient:
             d = json.load(res)
             return KenAllSearchResult.fromdict(d)
 
-    def search(self, *, q: str, offset: Optional[int] = None, limit: Optional[int] = None, facet: Optional[str] = None) -> KenAllSearchResult:
-        req = self.create_search_request(q, offset, limit, facet)
+    def search(self, *, q: Optional[str], t: Optional[str], offset: Optional[int] = None, limit: Optional[int] = None, facet: Optional[str] = None) -> KenAllSearchResult:
+        req = self.create_search_request(q, t, offset, limit, facet)
         return self.fetch_search_result(req)
