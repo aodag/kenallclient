@@ -13,7 +13,8 @@ def main() -> None:
     get_parser = subparsers.add_parser("get")
     get_parser.add_argument("postalcode")
     search_parser = subparsers.add_parser("search")
-    search_parser.add_argument("q")
+    search_parser.add_argument("--query", "-q")
+    search_parser.add_argument("--text", "-t")
     search_parser.add_argument("--offset", type=int)
     search_parser.add_argument("--limit", type=int)
     search_parser.add_argument("--facet")
@@ -22,4 +23,4 @@ def main() -> None:
     if args.command == "get":
         pprint(dataclasses.asdict(client.get(args.postalcode)))
     elif args.command == "search":
-        pprint(dataclasses.asdict(client.search(q=args.q, facet=args.facet, offset=args.offset, limit=args.limit)))
+        pprint(dataclasses.asdict(client.search(q=args.query, t=args.text, facet=args.facet, offset=args.offset, limit=args.limit)))
