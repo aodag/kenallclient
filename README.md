@@ -78,20 +78,19 @@ python -m kenallclient --apikey="YOUR_API_KEY" get 1008105
 
 ```
 $ python -m kenallclient search --help
-usage: __main__.py search [-h] [--offset OFFSET] [--limit LIMIT] [--facet FACET] q
-
-positional arguments:
-  q
+usage: __main__.py search [-h] [--query QUERY] [--text TEXT] [--offset OFFSET] [--limit LIMIT] [--facet FACET]
 
 optional arguments:
-  -h, --help       show this help message and exit
+  -h, --help            show this help message and exit
+  --query QUERY, -q QUERY
+  --text TEXT, -t TEXT
   --offset OFFSET
   --limit LIMIT
   --facet FACET
 ```
 
 ```
-python -m kenallclient --apikey="YOUR_API_KEY" search "神奈川県 AND 日本郵便"
+python -m kenallclient --apikey="YOUR_API_KEY" search -q "神奈川県 AND 日本郵便"
 [('q', '神奈川県 AND 日本郵便'), ('offset', None), ('limit', None), ('facet', None)]
 {'count': 3,
  'data': [{'building': '',
