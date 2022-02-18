@@ -69,6 +69,10 @@ class HoujinResult:
     version: str
     data: List[HoujinResultItem]
 
+    @classmethod
+    def fromdict(cls, i: Dict[str, Any]) -> "HoujinResult":
+        return HoujinResult(**i)
+
 
 @dataclasses.dataclass()
 class HoujinSearchResult:
@@ -79,6 +83,10 @@ class HoujinSearchResult:
     offset: int
     limit: int
     facets: List[Tuple[str, int]]
+
+    @classmethod
+    def fromdict(cls, i: Dict[str, Any]) -> "HoujinSearchResult":
+        return HoujinSearchResult(**i)
 
 
 @dataclasses.dataclass()
