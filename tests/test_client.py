@@ -7,8 +7,8 @@ def test_it():
 @pytest.mark.parametrize(
     "api_url,expected",
     [
-        pytest.param(None, "https://api.kenall.jp/v1/postalcode/"),
-        pytest.param("https://kenall.example.com/v1/", "https://kenall.example.com/v1/"),
+        pytest.param(None, "https://api.kenall.jp"),
+        pytest.param("https://kenall.example.com", "https://kenall.example.com"),
     ],
 )
 def test_api_url(api_url, expected):
