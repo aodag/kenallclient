@@ -61,7 +61,7 @@ class KenAllClient:
         return self.fetch_search_result(req)
 
     def create_houjin_request(self, houjinbangou: str) -> urllib.request.Request:
-        url = f"{self.api_url}/v1/houjin/{houjinbangou}"
+        url = f"{self.api_url}/v1/houjingangou/{houjinbangou}"
         return urllib.request.Request(url, headers=self.authorization)
 
     def fetch_houjin_result(self, req: urllib.request.Request) -> HoujinResult:
@@ -97,7 +97,7 @@ class KenAllClient:
         ]
 
         query = urllib.parse.urlencode([(k, v) for k, v in query_mapping if v is not None])
-        url = f"{self.api_url}/v1/houjin/?{query}"
+        url = f"{self.api_url}/v1/houjinbangou?{query}"
         req = urllib.request.Request(url, headers=self.authorization)
         return req
 
