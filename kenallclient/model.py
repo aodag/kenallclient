@@ -32,6 +32,7 @@ CORPORATION_CODE_TYPE = {
     1: "私書箱",
 }
 
+
 @dataclasses.dataclass()
 class HoujinResultItem:
     sequence_number: int
@@ -63,6 +64,7 @@ class HoujinResultItem:
     jisx0402: str
     address_image_id: Optional[str]
     street_number: str
+
 
 @dataclasses.dataclass()
 class HoujinResult:
@@ -162,3 +164,25 @@ class KenAllSearchResult:
         if dd["facets"] is not None:
             dd["facets"] = [tuple(f) for f in dd["facets"]]
         return KenAllSearchResult(**dd)
+
+
+@dataclasses.dataclass()
+class Holiday:
+    title: str
+    date: str
+    day_of_week: int
+    day_of_week_text: str
+
+    @classmethod
+    def fromdict(cls, d: Dict[str, Any]) -> "Holiday":
+        return cls(**d)
+
+
+@dataclasses.dataclass()
+class HolidaySearchResult:
+    data: List[Holiday]
+
+    @classmethod
+    def fromdict(cls, d: Dict[str, Any]) -> "HolidaySearchResult":
+        data = [Holiday.fromdict(i) for i in d["data"]]
+        return HolidaySearchResult(data=data)
